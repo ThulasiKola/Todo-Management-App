@@ -1,0 +1,43 @@
+import React,{useState} from 'react'
+import TodoList from './TodoList';
+
+const Main = () => {
+  const [task,setTask] = useState("");
+  const [todos,setTodos] = useState([]);
+
+  const changeHandler = e =>{
+    setTask(e.target.value)
+    //console.log(task)
+  }
+  const submitHandler = e =>{
+    e.preventDefault();
+    const newTodos = [...todos,task];
+    setTodos(newTodos);
+    setTask("");
+  }
+  const deleteHandler = (indexfrmbtn) =>{
+    const newTodos = todos.filter((todo,index) => index !== indexfrmbtn);
+    //console.log(newTodos);
+    setTodos(newTodos);
+    //console.log(todos);
+  }
+  return (
+    <div>
+      <center>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">Todo Management Application</h5>
+            <form onSubmit={submitHandler}>
+              <input size="30" type="text" name="task" value={task} onChange={changeHandler} /> &nbsp;&nbsp;
+              <input type="submit" value="Add" name="Add"/>
+            </form>
+            <TodoList todolist={todos} deleteitems={deleteHandler}/>
+            {/* {console.log(todos)} */}
+          </div>
+        </div>
+      </center>
+    </div>
+  )
+}
+
+export default Main
